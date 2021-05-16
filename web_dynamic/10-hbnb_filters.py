@@ -4,7 +4,6 @@ from models import storage
 from models.state import State
 from models.city import City
 from models.amenity import Amenity
-from models.place import Place
 from os import environ
 from flask import Flask, render_template
 app = Flask(__name__)
@@ -18,9 +17,9 @@ def close_db(error):
     storage.close()
 
 
-@app.route('/hbnb', strict_slashes=False)
-def hbnb():
-    """ HBNB is alive! """
+@app.route('/hbnb_filters', strict_slashes=False)
+def hbnb_filter():
+    """ HBNB filters """
     states = storage.all(State).values()
     states = sorted(states, key=lambda k: k.name)
     st_ct = []
@@ -31,14 +30,9 @@ def hbnb():
     amenities = storage.all(Amenity).values()
     amenities = sorted(amenities, key=lambda k: k.name)
 
-    places = storage.all(Place).values()
-    places = sorted(places, key=lambda k: k.name)
-
-    cache_id = uuid.uuid4()
-    return render_template('100-hbnb.html',
+    return render_template('10-hbnb_filters.html',
                            states=st_ct,
-                           amenities=amenities,
-                           places=places, cache_id=cache_id)
+                           amenities=amenities)
 
 
 if __name__ == "__main__":
