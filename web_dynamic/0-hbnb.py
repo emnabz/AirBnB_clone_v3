@@ -10,7 +10,7 @@ from flask import Flask, render_template
 app = Flask(__name__)
 # app.jinja_env.trim_blocks = True
 # app.jinja_env.lstrip_blocks = True
-
+import uuid
 
 @app.teardown_appcontext
 def close_db(error):
@@ -18,7 +18,7 @@ def close_db(error):
     storage.close()
 
 
-@app.route('/hbnb', strict_slashes=False)
+@app.route('/0-hbnb', strict_slashes=False)
 def hbnb():
     """ HBNB is alive! """
     states = storage.all(State).values()
